@@ -1,0 +1,240 @@
+<!--
+WINDOWS SIMULATOR © 2022-2024
+Desenvolvido por Reynolds Costa, no Notepad++
+
+O uso é permitido; a comercialização, proibida.
+-->
+
+<html>
+	<head>
+		<meta charset = "utf-8" />
+		<title>Windows Simulator</title>
+		<link type = "text/css" rel = "stylesheet" href = "css/windowsSimulator.css" />
+		<script type = "text/javascript" language = "JavaScript" src = "js/windowsSimulator_main.js"></script>
+		<script type = "text/javascript" language = "JavaScript" src = "js/windowsSimulator_func.js"></script>
+		<script type = "text/javascript" language = "JavaScript" src = "js/windowsSimulator_props.js"></script>
+		<style type = "text/css">
+			.disparador {
+				margin: 10px;
+				width: 50px;
+				height: 50px;
+				background: #F00;
+			}
+		</style>
+		<script type = "text/javascript" language = "JavaScript">
+			WS_menu_bar_json = [
+				{
+					label : "Navegar",
+					altIndex : 0,
+					children : [
+						{
+							label : "Introdução",
+							fn : function() {
+								location.href = "#introducao";
+							}
+						},
+						{
+							label : "Instalação",
+							fn : function() {
+								location.href = "#instalacao";
+							}
+						},
+						{
+							label : "Utilização",
+							disabled : true,
+							children : [
+								{
+									label : "Objeto principal",
+									fn : function() {
+										location.href = "#objeto";
+									}
+								},
+								{
+									label : "Função principal",
+									fn : function() {
+										location.href = "#principal";
+									}
+								},
+								{
+									label : "Função ativar",
+									fn : function() {
+										location.href = "#ativar";
+									}
+								},
+								{
+									label : "Propriedade WLM_letra_auto",
+									fn : function() {
+										location.href = "#auto";
+									}
+								}
+							]
+						},
+						{
+							label : "Palavras reservadas",
+							fn : function() {
+								location.href = "#reservadas";
+							}
+						},
+						{
+							label : "Alterações",
+							fn : function() {
+								location.href = "#alteracoes";
+							}
+						},
+						{
+							label : "Voltar",
+							fn : function() {
+								window.open("https://github.com/RandomPianist?tab=repositories", "_blank");
+							},
+							shortcut : [36],
+							divider : true
+						}
+					]
+				},
+				{
+					label : "Redes",
+					altIndex : 0,
+					children : [
+						{
+							label : "GitHub",
+							altIndex : 3,
+							children : [
+								{
+									label : "Repositórios",
+									children : [
+										{
+											label : "Bibliotecas",
+											children : [
+												{
+													label : "CombinarTeclas",
+													children : [
+														{
+															label : "Repositório",
+															fn : function() {
+																window.open("https://github.com/RandomPianist/combinarTeclas", "_blank");
+															}
+														},
+														{
+															label : "Explicação",
+															fn : function() {
+																window.open("https://randompianist.github.io/combinarTeclas", "_blank");
+															}
+														}
+													]
+												},
+												{
+													label : "WindowsLikeMenu",
+													children : [
+														{
+															label : "Repositório",
+															fn : function() {
+																window.open("https://github.com/RandomPianist/windowsLikeMenu", "_blank");
+															},
+															disabled : true
+														},
+														{
+															label : "Explicação",
+															fn : function() {
+																window.open("https://randompianist.github.io/windowsLikeMenu", "_blank");
+															},
+															disabled : true
+														}
+													]
+												},
+												{
+													label : "JanelaPersonalizada",
+													children : [
+														{
+															label : "Repositório",
+															fn : function() {
+																window.open("https://github.com/RandomPianist/janelaPersonalizada", "_blank");
+															}
+														},
+														{
+															label : "Explicação",
+															fn : function() {
+																window.open("https://randompianist.github.io/janelaPersonalizada", "_blank");
+															}
+														}
+													]
+												}
+											]
+										},
+										{
+											label : "Puzzle",
+											altIndex : 0,
+											fn : function() {
+												window.open("https://randompianist.github.io/puzzle", "_blank");
+											}
+										}
+									]
+								},
+								{
+									label : "Forks",
+									children : [
+										{
+											label : "Line Chart",
+											children : [
+												{
+													label : "Repositório",
+													fn : function() {
+														window.open("https://github.com/RandomPianist/oi.linechart.js", "_blank");
+													}
+												},
+												{
+													label : "Explicação",
+													fn : function() {
+														window.open("https://randompianist.github.io/oi.linechart.js", "_blank");
+													}
+												}
+											]
+										},
+										{
+											label : "Gwent 3.1",
+											altIndex : 0,
+											fn : function() {
+												window.open("https://randompianist.github.io/gwent-classic-v3.1", "_blank");
+											}
+										}
+									]
+								}
+							]
+						},
+						{
+							label : "Outras",
+							altIndex : 0,
+							fn : function() {
+								window.open("https://linktr.ee/reynoldscosta", "_blank");			
+							}
+						}
+					]
+				},
+				{
+					label : "Sobre",
+					altIndex : 0,
+					children : [
+						{
+							label : "Sobre o Windows Like Menu",
+							altIndex : 2,
+							fn : function() {
+								alert("Essa biblioteca tem a finalidade de simular um menu como o do S.O. Windows, incluindo comandos de atalho e seleção com o teclado.");
+							},
+							shortcut : [16, 65]
+						}
+					]
+				}
+			];
+		
+			function associaMenu() {
+				WS.menu.context.create(document.querySelectorAll(".disparador"), WS_menu_bar_json);
+			}
+		</script>
+	<head>
+	<body>
+		<div class = "disparador"></div>
+		<div class = "disparador"></div>
+		<div class = "disparador"></div>
+		<div class = "disparador"></div>
+		<button onclick = "associaMenu()">Associar os menus</button>
+	</body>
+</html>
