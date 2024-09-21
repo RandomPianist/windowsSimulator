@@ -2402,7 +2402,7 @@ function WindowsSimulator() {
 				if (that2.list[name] !== undefined) {
 					_content = "<p>" + _content + "</p>";
 					reabrir(_content, _title, name);
-				} else that2.list[name] = that.create.confirma(_content, _title, false, callback);
+				} else that2.list[name] = that.create.confirm(_content, _title, false, callback);
 				centralizar(name);
 			}
 
