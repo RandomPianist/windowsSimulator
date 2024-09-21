@@ -394,7 +394,7 @@ function WindowsSimulator() {
 		const prevent = function(e) {
 			arr.forEach((command) => {
 				command[0].forEach((tecla) => {
-					if (tecla == e.keyCode) e.preventDefault();
+					if (tecla == e.keyCode && ["INPUT", "TEXTAREA"].indexOf(document.activeElement.tagName) == -1) e.preventDefault();
 				});
 			});
 		}
