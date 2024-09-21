@@ -800,11 +800,13 @@ function WindowsSimulator() {
 				fechar(that);
 				document.getElementById("ws-menucontext").innerHTML = "";
 			}
-			
-			this.create = function(triggers, obj) {
+
+			this.create = function(triggers, obj, exceto) {
 				obj = validar(obj, false);
 				if (typeof obj == "object") {
-					Array.from(document.querySelectorAll("*")).forEach((el) => {
+					let lista = "*";
+					if (exceto !== undefined) lista += ":not(" + exceto + ")";
+					Array.from(document.querySelectorAll(lista)).forEach((el) => {
 						el.oncontextmenu = function() {}
 					});
 					Array.from(triggers).forEach((el) => {
