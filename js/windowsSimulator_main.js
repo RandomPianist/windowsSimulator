@@ -2289,7 +2289,6 @@ function WindowsSimulator() {
 							btnTopo    : 0,
 							zIndex     : 0,
 							sel        : -1,
-							ultimoR    : 0,
 							objeto     : clonar(main)
 						};
 						that.list[_id] = clonar(main);
@@ -2351,16 +2350,6 @@ function WindowsSimulator() {
 								that.maintance.maxmin(_id);
 							}, 150);
 						}
-						let ref3 = document.getElementById(_id + "-body");
-						ref3.onscroll = function() {
-							const atual = ref3.scrollTop;
-							lista_global[_id].rolado += Math.abs(atual - lista_global[_id].ultimoR);
-							lista_global[_id].ultimoR = atual;
-						}
-						setInterval(function() {
-							if (lista_global[_id].rolado > 50) WS.menu.context.close();
-							lista_global[_id].rolado = 0;
-						}, 100);
 					} else console.error('O parâmetro "obj.id" deve ser do tipo string');
 				}
 			}, 0);
