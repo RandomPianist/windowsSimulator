@@ -2270,7 +2270,7 @@ function WindowsSimulator() {
 				janId = "";
 				if (validarParam("obj", obj, "object", true, true, true)) {
 					let main = validarJSON(obj);
-					if (obj.id === undefined) obj.id = "janela";
+					if (obj.id === undefined) obj.id = "box";
 					if (typeof obj.id == "string") {
 						let cont = 1;
 						for (x in lista_global) {
@@ -2320,7 +2320,7 @@ function WindowsSimulator() {
 								"></button>" +
 							"</div>" +
 						"</div>" +
-						"<div class = 'window-body " + semBotoes + "' id = '" + _id + "-corpo'>" +
+						"<div class = 'window-body " + semBotoes + "' id = '" + _id + "-body'>" +
 							main.content.body +
 						"</div>" +
 						"<footer class = '" + semBotoes + "'>" +
