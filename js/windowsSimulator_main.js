@@ -1035,7 +1035,7 @@ function WindowsSimulator() {
 					btn.fn = function() {
 						controle_prompt = that.resources.getLast("active");
 						let valor = document.querySelector("#" + controle_prompt + " #prompt").value;
-						let erro = validar(valor);
+						let erro = validate(valor);
 						if (typeof erro == "string") {
 							that.maintance.close();
 							if (erro) {
