@@ -804,9 +804,6 @@ function WindowsSimulator() {
 			this.create = function(triggers, obj) {
 				obj = validar(obj, false);
 				if (typeof obj == "object") {
-					setTimeout(function() {
-						that.isOpen = true;
-					}, 400);
 					Array.from(document.querySelectorAll("*")).forEach((el) => {
 						el.oncontextmenu = function() {}
 					});
@@ -819,6 +816,7 @@ function WindowsSimulator() {
 							estilo.top = (e.clientY + 24) + "px";
 							estilo.left = e.clientX + "px";
 							estilo.display = "block";
+							that.isOpen = true;
 							const zIndex = WS.boxes.resources.zIndex();
 							if (zIndex) estilo.zIndex = zIndex;
 						}
