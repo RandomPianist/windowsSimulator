@@ -668,6 +668,10 @@ div.ws-progress.marquee > div {
 	outline-offset: -4px
 }
 
+.ws-box b {
+	font-weight: bold
+}
+
 div.ws-progress {
 	background: radial-gradient(circle at 0 50%, #0000001f 10px, transparent 30px), radial-gradient(circle at 100% 50%, #0000001f 10px, transparent 30px), linear-gradient(180deg, #f3f3f3af, #fcfcfcaf 3px, #dbdbdbaf 6px, #cacacaaf 0, #d5d5d5af), #ddd;
 	border: 1px solid #8e8f8f;

@@ -2500,7 +2500,7 @@ function WindowsSimulator() {
 						buttons : botoes,
 						config : {
 							close : {
-								teclado : false
+								keyboard : false
 							}
 						}
 					},
