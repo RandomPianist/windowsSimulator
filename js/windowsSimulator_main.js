@@ -15,6 +15,7 @@ Não altere se não souber o que está fazendo.
 
 let WS;
 let WS_isLoaded = false;
+let WS_isLoading = false;
 let WS_menu_bar_json = new Array();
 const WS_doNotCallback = Math.random();
 
@@ -2453,6 +2454,7 @@ function WindowsSimulator() {
 					estilo.width = "100%";
 					setTimeout(function() {
 						WS_properties.boxes.mult = true;
+						WS_isLoading = false;
 						that2.list.loader.set.close();
 						document.querySelector("#ws-loader style").innerHTML = "";
 					}, 500);
@@ -2473,6 +2475,7 @@ function WindowsSimulator() {
 					btn.fn = function() {
 						that3.proceed = false;
 						WS_properties.boxes.mult = true;
+						WS_isLoading = false;
 						that2.list.loader.set.close();
 					};
 					botoes.push({
@@ -2483,7 +2486,7 @@ function WindowsSimulator() {
 						document.querySelector("#ws-loader style").innerHTML = "* {cursor:wait !important}";
 					}, 500);
 				}
-
+				WS_isLoading = true;
 				WS_properties.boxes.mult = false;
 				that2.main("loader", {
 					content : {
