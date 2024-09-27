@@ -19,6 +19,16 @@ O uso é permitido; a comercialização, proibida.
 	}
 }
 
+@keyframes ws-pulse-anim {
+	0% {
+		box-shadow: inset 0 0 3px 1px #34deffdd
+	}
+
+	to {
+		box-shadow: inset 0 0 1px 1px #34deffdd
+	}
+}
+
 body {
 	overflow: hidden
 }
@@ -128,8 +138,10 @@ ul.ws-menubox td {
 	white-space: nowrap
 }
 
+.ws-box footer,
 ul.ws-menubox td.caret,
-ul.ws-menubox td.shortcut {
+ul.ws-menubox td.shortcut,
+table.ws-progress tr > td:nth-child(2) {
 	text-align: right
 }
 
@@ -164,7 +176,8 @@ ul.ws-menubox td.shortcut {
 #ws-menubar > ul,
 #ws-menubar-cover,
 ul.ws-menubox table,
-div.ws-progress.marquee > div {
+div.ws-progress.marquee > div,
+table.ws-progress {
 	width: 100% !important
 }
 
@@ -307,19 +320,9 @@ div.ws-progress.marquee > div {
 }
 
 .ws-box button:focus {
-	animation: pulse-anim 1s ease infinite alternate;
+	animation: ws-pulse-anim 1s ease infinite alternate;
 	background-image: linear-gradient(180deg, #eaf6fd 45%, #bee6fd 0, #a7d9f5);
 	border-color: #5586a3
-}
-
-@keyframes pulse-anim {
-	0% {
-		box-shadow: inset 0 0 3px 1px #34deffdd
-	}
-
-	to {
-		box-shadow: inset 0 0 1px 1px #34deffdd
-	}
 }
 
 .ws-box input[type=email],
@@ -396,8 +399,7 @@ div.ws-progress.marquee > div {
 	box-shadow: 0 .5px 1px .5px #fff;
 	margin: -7px 6px 6px;
 	padding: 10px;
-	position: relative;
-	text-align: right
+	position: relative
 }
 
 .ws-box footer:before {

@@ -2440,8 +2440,35 @@ function WindowsSimulator() {
 				}
 			}
 			
-			this.loader = function(total) {
+			this.loader = function(total, label, _title) {
+				if (label === undefined) label = "Carregando...";
+				if (_title === undefined) _title = "Carregando";
 				let that3 = this;
+				let tempo = 0;
+				let totalGeral = total;
+
+				const temporizador = setInterval(function() {
+					let tempoFormatado = function(val) {
+						let horas = parseInt((val / 3600).toFixed(0))
+						let minutos = parseInt(((val - (horas * 3600)) / 60).toFixed(0));
+						let segundos = parseInt((val - (horas * 3600) - (minutos * 60)).toFixed(0));
+						let resultado = minutos.toString().padStart(2, "0") + ":" + segundos.toString().padStart(2, "0");
+						if (horas) resultado = horas.toString().padStart(2, "0") + ":" + resultado;
+						return resultado;
+					}
+
+					tempo++;
+					document.getElementById("ws-elapsed").innerHTML = tempoFormatado(tempo);
+					document.getElementById("ws-estimated").innerHTML = total ? tempoFormatado(((tempo * totalGeral) / that3.current) - tempo) : "Indisponível";
+				}, 1000);
+
+				const fechar = function() {
+					WS_properties.boxes.mult = true;
+					WS_isLoading = false;
+					clearInterval(temporizador);
+					tempo = 0;
+					that2.list.loader.set.close();
+				}
 
 				this.go = function(portion) {
 					let estilo = document.querySelector("#ws-loader div").style;
@@ -2453,9 +2480,7 @@ function WindowsSimulator() {
 					that3.proceed = false;
 					estilo.width = "100%";
 					setTimeout(function() {
-						WS_properties.boxes.mult = true;
-						WS_isLoading = false;
-						that2.list.loader.set.close();
+						fechar();
 						document.querySelector("#ws-loader style").innerHTML = "";
 					}, 500);
 				}
@@ -2463,7 +2488,12 @@ function WindowsSimulator() {
 				this.reset = function(_total) {
 					that3.current = 0;
 					total = _total;
+					totalGeral += _total;
 					document.querySelector("#ws-loader div").style.width = "0%";
+				}
+
+				this.setLabel = function(label) {
+					document.querySelector("p.ws-progress").innerHTML = label;
 				}
 
 				this.current = 0;
@@ -2474,9 +2504,7 @@ function WindowsSimulator() {
 					let btn = WS.boxes.resources.standardButton();
 					btn.fn = function() {
 						that3.proceed = false;
-						WS_properties.boxes.mult = true;
-						WS_isLoading = false;
-						that2.list.loader.set.close();
+						fechar();
 					};
 					botoes.push({
 						"Cancelar" : btn
@@ -2486,20 +2514,32 @@ function WindowsSimulator() {
 						document.querySelector("#ws-loader style").innerHTML = "* {cursor:wait !important}";
 					}, 500);
 				}
-				WS_isLoading = true;
+
 				WS_properties.boxes.mult = false;
+				WS_isLoading = true;
 				that2.main("loader", {
 					content : {
 						head : {
-							title : "Carregando",
+							title : _title,
 							buttons : {
 								maximize : false
 							}
 						},
-						body : "<div id = 'ws-loader' class = 'ws-progress animate" + (!total ? " marquee" : "") + "'>" +
+						body : "<p class = 'ws-progress' style = 'margin:10px 0'>" + label + "</p>" +
+						"<div id = 'ws-loader' class = 'ws-progress animate" + (!total ? " marquee" : "") + "'>" +
 							"<div style = 'width:0%'></div>" +
 							"<style type = 'text/css'></style>" +
-						"</div>",
+						"</div>" +
+						"<table class = 'ws-progress'>" +
+							"<tr>" +
+								"<td>Tempo decorrido:</td>" +
+								"<td id = 'ws-elapsed'>Calculando...</td>" +
+							"</tr>" +
+							"<tr>" +
+								"<td>Tempo estimado:</td>" +
+								"<td id = 'ws-estimated'>Calculando...</td>" +
+							"</tr>" +
+						"</table>",
 						buttons : botoes,
 						config : {
 							close : {
@@ -2508,7 +2548,11 @@ function WindowsSimulator() {
 						}
 					},
 					style : {
-						maximize : false
+						maximize : false,
+						dimensions : {
+							height : total ? 200 : 170,
+							width : 248
+						}
 					}
 				});
 				return this;
