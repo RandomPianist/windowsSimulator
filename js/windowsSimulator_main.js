@@ -1123,7 +1123,7 @@ function WindowsSimulator() {
 						if (typeof ref2.head == "object") {
 							if (typeof ref2.head.title == "string") document.querySelector("#" + id + " .title-bar-text").innerHTML = main.content.head.title;
 						}
-						if (typeof ref2.body    == "string") document.getElementById(id + "-corpo").innerHTML = main.content.body;
+						if (typeof ref2.body    == "string") document.getElementById(id + "-body").innerHTML = main.content.body;
 						if (typeof ref2.buttons == "object") document.querySelector("#" + id + " footer").innerHTML = botoesHTML(main.content.buttons, id);
 					}
 					let ref2 = main.content.head.buttons;
