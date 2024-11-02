@@ -386,7 +386,7 @@ function WindowsSimulator() {
 			});
 		}
 		if (erro) console.error(
-			"WS.keyboardcombo não pôde ser construído devido a uma falha no parâmetro.\n" +
+			"WS.keycombo não pôde ser construído devido a uma falha no parâmetro.\n" +
 			erro + "."
 		);
 		
