@@ -727,7 +727,9 @@ function WindowsSimulator() {
 					that.selectedRoot = el;
 					let caixa = el.nextElementSibling;
 					if (caixa !== null) {
-						el.nextElementSibling.style.display = "block";
+						let estilo = el.nextElementSibling.style;
+						estilo.display = "block";
+                        estilo.zIndex = WS.boxes.resources.zIndex() + 1;
 						setTimeout(function() {
 							that.isOpen = true;
 						}, 400);
@@ -839,6 +841,7 @@ function WindowsSimulator() {
 		this.over = function(el, mouse, obj, bar) {
 			Array.from(document.querySelectorAll(".ws-menu ul")).forEach((aux) => {
 				aux.style.removeProperty("display");
+                aux.style.removeProperty("z-index");
 			});
 			Array.from(document.querySelectorAll(".ws-menu a")).forEach((aux) => {
 				aux.classList.remove("hover");
@@ -851,11 +854,12 @@ function WindowsSimulator() {
 				if (el.classList.contains("ws-menu")) parar = true;
 				if (!parar) {
 					switch(el.tagName) {
+                        case "UL":
+							el.style.display = "block";
+                            el.style.zIndex = WS.boxes.resources.zIndex() + 1;
+							break;
 						case "LI":
 							el.querySelector("a").classList.add("hover");
-							break;
-						case "UL":
-							el.style.display = "block";
 							break;
 					}
 				}
@@ -1370,15 +1374,13 @@ function WindowsSimulator() {
 				let retorno = true;
 				const ultimoAtivo = that.resources.getLast("active");
 				if (WS_properties.boxes.mult) {
+                    retorno = false;
 					let abertos = new Array();
 					for (x in lista_global) {
 						if (lista_global[x].aberto) abertos.push(x);
 					}
 					abertos.forEach((jan) => {
-						if (document.getElementById(jan).contains(e.target)) {
-							ativar(jan);
-							retorno = false;
-						}
+						if (document.getElementById(jan).contains(e.target)) ativar(jan);
 					});
 				}
 				if (retorno) {
@@ -1909,7 +1911,7 @@ function WindowsSimulator() {
 				document.getElementById(x).style.zIndex = val;
 			}
 			if (WS_menu_bar_json.length) {
-				document.getElementById("ws-menubar-cover").style.display = "block";
+				if (!WS_properties.boxes.mult) document.getElementById("ws-menubar-cover").style.display = "block";
 				WS.menu.bar.close();
 			}
 		}
@@ -2446,6 +2448,7 @@ function WindowsSimulator() {
 				let that3 = this;
 				let tempo = 0;
 				let totalGeral = total;
+                let antMult = WS_properties.boxes.mult;
 
 				const temporizador = setInterval(function() {
 					let tempoFormatado = function(val) {
@@ -2463,7 +2466,7 @@ function WindowsSimulator() {
 				}, 1000);
 
 				const fechar = function() {
-					WS_properties.boxes.mult = true;
+					WS_properties.boxes.mult = antMult;
 					WS_isLoading = false;
 					clearInterval(temporizador);
 					tempo = 0;
