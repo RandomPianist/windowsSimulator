@@ -2462,7 +2462,7 @@ function WindowsSimulator() {
 
 					tempo++;
 					document.getElementById("ws-elapsed").innerHTML = tempoFormatado(tempo);
-					document.getElementById("ws-estimated").innerHTML = total ? tempoFormatado(((tempo * totalGeral) / that3.current) - tempo) : "Indisponível";
+					document.getElementById("ws-estimated").innerHTML = total && that3.current ? tempoFormatado((tempo / (that3.current / totalGeral)) - tempo) : "Indisponível";
 				}, 1000);
 
 				const fechar = function() {
