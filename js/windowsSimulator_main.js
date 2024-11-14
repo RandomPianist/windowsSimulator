@@ -151,6 +151,8 @@ function WindowsSimulator() {
 	}
 	
 	const Control = function() {
+        let that = this;
+
 		let executaKC = function(cod) {
 			return (
 				!WS.menu.context.isOpen || ([18, 27].indexOf(cod) == -1 && ([13, 37, 38, 39, 40].indexOf(cod) == -1 || WS.menu.context.selected === null))
@@ -159,7 +161,7 @@ function WindowsSimulator() {
 			) && !WS.boxes.resources.getLast("active")
 		}
 		
-		const alt = function(tipo, abrir) {
+		this.alt = function(tipo, abrir) {
 			Array.from(document.querySelectorAll("#ws-menu" + tipo + " span")).forEach((el) => {
 				if (abrir) {
 					if (el.dataset.alt !== undefined) {
@@ -185,12 +187,12 @@ function WindowsSimulator() {
 					});
 					if (!impedido) {
 						WS.menu[tipo].close();
-						alt(tipo, false);
+						that.alt(tipo, false);
 					}
 					continua = false;
 				}
-				if (tipo == "context" && continua) continua = WS.boxes._control.click(e);
 			});
+            if (continua) continua = WS.boxes._control.click(e);
 		}
 		
 		this.keydown = function(e) {
@@ -275,9 +277,9 @@ function WindowsSimulator() {
 									eval(selecionado.href.replace("javascript:", ""));
 								} else WS.menu.over(selecionado.nextElementSibling.firstElementChild.firstElementChild, false, WS.menu.context, false);
 							} else if (cod == 27) {
-								if (WS.menu.context.alt) alt("context", false);
+								if (WS.menu.context.alt) that.alt("context", false);
 								else WS.menu.context.close();
-							} else if (cod == 18) alt("context", !WS.menu.context.alt);
+							} else if (cod == 18) that.alt("context", !WS.menu.context.alt);
 						}
 					} else if (WS.boxes.resources.getLast("active")) WS.boxes._control.keydown(e);
 					else if (WS_menu_bar_json.length) {
@@ -308,7 +310,7 @@ function WindowsSimulator() {
 								if (selecionado !== null) {
 									if (selecionado.href) {
 										WS.menu.bar.close();
-										alt("bar", false);
+										that.alt("bar", false);
 										eval(selecionado.href.replace("javascript:", ""));
 									} else WS.menu.over(selecionado.nextElementSibling.firstElementChild.firstElementChild, false, WS.menu.bar, true);
 								} else if (raiz !== null && (!WS.menu.bar.isOpen || fAlt)) {
@@ -316,7 +318,7 @@ function WindowsSimulator() {
 									WS.menu.over(raiz.nextElementSibling.querySelector("a"), false, WS.menu.bar, true);
 								}
 							} else if (cod == 18) {
-								alt("bar", !WS.menu.bar.alt && !WS.menu.bar.isOpen);
+								that.alt("bar", !WS.menu.bar.alt && !WS.menu.bar.isOpen);
 								if (WS.menu.bar.alt) {
 									WS.menu.bar.open(document.querySelector("#ws-menubar > ul > li > span"), false);
 									WS.menu.over(document.querySelector("#ws-menubar .ws-menu-lvl-1 a"), false, WS.menu.bar, true);
@@ -324,7 +326,7 @@ function WindowsSimulator() {
 							} else if (cod == 27) {
 								if (!WS.menu.bar.isOpen) {
 									WS.menu.bar.close();
-									alt("bar", false);
+									that.alt("bar", false);
 								} else WS.menu.bar.clear(false);
 							}
 						}
@@ -814,6 +816,12 @@ function WindowsSimulator() {
 					});
 					Array.from(triggers).forEach((el) => {
 						el.oncontextmenu = function(e) {
+                            try {
+                                if (WS.menu.bar.isOpen) {
+                                    WS.menu.bar.close();
+                                    WS._control.alt("bar", false);
+                                }
+                            } catch(err) {}
 							e.preventDefault();
 							let caixa = document.getElementById("ws-menucontext");
 							let estilo = caixa.style;
