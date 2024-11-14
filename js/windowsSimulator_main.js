@@ -2452,11 +2452,11 @@ function WindowsSimulator() {
 
 				const temporizador = setInterval(function() {
 					let tempoFormatado = function(val) {
-						let horas = parseInt((val / 3600).toFixed(0))
-						let minutos = parseInt(((val - (horas * 3600)) / 60).toFixed(0));
-						let segundos = parseInt((val - (horas * 3600) - (minutos * 60)).toFixed(0));
+						let horas = Math.floor(val / 3600);
+						let minutos = Math.floor((val - (horas * 3600)) / 60);
+						let segundos = Math.floor(val - (horas * 3600) - (minutos * 60));
 						let resultado = minutos.toString().padStart(2, "0") + ":" + segundos.toString().padStart(2, "0");
-						if (horas) resultado = horas.toString().padStart(2, "0") + ":" + resultado;
+                        if (horas) resultado = horas.toString().padStart(2, "0") + ":" + resultado;
 						return resultado;
 					}
 
