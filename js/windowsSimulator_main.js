@@ -546,7 +546,7 @@ function WindowsSimulator() {
 						}
 						if (!erro) {
 							if (["undefined", "boolean"].indexOf(typeof el.divider) > -1) {
-								if (el.divider !== undefined && raiz) erro = 'O parâmetro "divider" não pode ser declarado em elementos da raiz do menu';
+								if (el.divider !== undefined && raiz && bar) erro = 'O parâmetro "divider" não pode ser declarado em elementos na raiz da barra de menu';
 							} else erro = 'O parâmetro "divider", se declarado, deve ser do tipo boolean';
 						}
 						if (!erro) {
