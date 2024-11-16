@@ -790,11 +790,16 @@ function WindowsSimulator() {
 			}
 			
 			if (typeof obj == "object") {
+				let estilo = document.getElementById("ws-all").style;
+				let alturaAll = window.innerHeight;
 				document.body.innerHTML = "<div id = 'ws-menubar' class = 'ws ws-menu'>" + criar() + "</div>" +
 					"<div id = 'ws-menubar-cover' class = 'ws-menu'></div>" +
 					"<div id = 'ws-all'>" + document.body.innerHTML + "</div>";
-				if (obj.length) document.getElementById("ws-menubar").style.display = "block";
-				else document.getElementById("ws-all").style.margin = "0px";
+				if (obj.length) {
+					document.getElementById("ws-menubar").style.display = "block";
+					alturaAll -= 27;
+				} else estilo.margin = "0px";
+				estilo.height = alturaAll + "px";
 			}
 		}
 		
@@ -806,11 +811,12 @@ function WindowsSimulator() {
 				document.getElementById("ws-menucontext").innerHTML = "";
 			}
 
-			this.create = function(triggers, obj, exceto) {
+			this.create = function(triggers, obj, except, container) {
 				obj = validar(obj, false);
 				if (typeof obj == "object") {
 					let lista = "*";
-					if (exceto !== undefined) lista += ":not(" + exceto + ")";
+					if (except !== undefined) except = "";
+					if (except) lista += ":not(" + except + ")";
 					Array.from(document.querySelectorAll(lista)).forEach((el) => {
 						el.oncontextmenu = function() {}
 					});
@@ -824,10 +830,17 @@ function WindowsSimulator() {
                             } catch(err) {}
 							e.preventDefault();
 							let caixa = document.getElementById("ws-menucontext");
+							const aux = caixa.firstElementChild;
 							let estilo = caixa.style;
 							caixa.innerHTML = html(obj, 0, 0, false, that);
-							estilo.top = (e.clientY + 24) + "px";
-							estilo.left = e.clientX + "px";
+							let top = e.clientY + 24;
+							let left = e.clientX;
+							const altura = aux.offsetHeight;
+							const largura = aux.offsetWidth;
+							if ((top + altura) > (container !== undefined ? container.offsetHeight : window.innerHeight)) top -= altura;
+							if ((left + largura) > (container !== undefined ? container.offsetWidth : window.innerWidth)) left -= largura;
+							estilo.top = top + "px";
+							estilo.left = left + "px";
 							estilo.display = "block";
 							that.isOpen = true;
 							const zIndex = WS.boxes.resources.zIndex();
@@ -1460,6 +1473,9 @@ function WindowsSimulator() {
 					} else document.querySelector("#" + x + " .title-bar-text").style.removeProperty("margin-right");
 					if (ref.length) posicionar(x, document.getElementById("ws-box-mov-" + x), ref[1] * 10, ref[0] * 10, el.offsetHeight, el.offsetWidth);
 				}
+				let alturaAll = window.innerHeight;
+				if (WS_menu_bar_json.length) alturaAll -= 27;
+				document.getElementById("ws-all").style.height = alturaAll + "px";
 			}
 
 			this.exec = function(index, index2) {

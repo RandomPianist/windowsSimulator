@@ -226,8 +226,7 @@ table.ws-progress {
 #ws-all {
 	overflow-x: hidden;
 	overflow-y: auto;
-	margin-top: 27px;
-	min-height: 100%
+	margin-top: 27px
 }
 
 .ws-box button {
