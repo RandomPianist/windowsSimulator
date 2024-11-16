@@ -828,13 +828,13 @@ function WindowsSimulator() {
                                     WS._control.alt("bar", false);
                                 }
                             } catch(err) {}
-							e.preventDefault();
+							if (e !== undefined) e.preventDefault();
 							let caixa = document.getElementById("ws-menucontext");
 							let estilo = caixa.style;
 							caixa.innerHTML = html(obj, 0, 0, false, that);
 							const aux = caixa.firstElementChild;
-							let top = e.clientY + 24;
-							let left = e.clientX;
+							let top = e === undefined ? el.getBoundingClientRect().top + 28 : e.clientY + 24;
+							let left = e === undefined ? el.getBoundingClientRect().left + 3 : e.clientX;
 							const altura = aux.offsetHeight;
 							const largura = aux.offsetWidth;
 							if ((top + altura) > (container !== undefined ? container.offsetHeight : window.innerHeight)) top -= altura;
