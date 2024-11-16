@@ -830,9 +830,9 @@ function WindowsSimulator() {
                             } catch(err) {}
 							e.preventDefault();
 							let caixa = document.getElementById("ws-menucontext");
-							const aux = caixa.firstElementChild;
 							let estilo = caixa.style;
 							caixa.innerHTML = html(obj, 0, 0, false, that);
+							const aux = caixa.firstElementChild;
 							let top = e.clientY + 24;
 							let left = e.clientX;
 							const altura = aux.offsetHeight;
