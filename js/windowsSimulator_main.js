@@ -790,11 +790,11 @@ function WindowsSimulator() {
 			}
 			
 			if (typeof obj == "object") {
-				let estilo = document.getElementById("ws-all").style;
 				let alturaAll = window.innerHeight;
 				document.body.innerHTML = "<div id = 'ws-menubar' class = 'ws ws-menu'>" + criar() + "</div>" +
 					"<div id = 'ws-menubar-cover' class = 'ws-menu'></div>" +
 					"<div id = 'ws-all'>" + document.body.innerHTML + "</div>";
+				let estilo = document.getElementById("ws-all").style;
 				if (obj.length) {
 					document.getElementById("ws-menubar").style.display = "block";
 					alturaAll -= 27;
