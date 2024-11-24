@@ -2302,9 +2302,7 @@ function WindowsSimulator() {
 					if (obj.id === undefined) obj.id = "box";
 					if (typeof obj.id == "string") {
 						let cont = 1;
-						for (x in lista_global) {
-							if (x == "ws-" + obj.id + cont) cont++;
-						}
+						while (document.getElementById("ws-" + obj.id + cont) !== null) cont++;
 						let _id = "ws-" + obj.id + cont;
 						lista_global[_id] = {
 							aberto     : true,
