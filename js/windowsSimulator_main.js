@@ -1476,6 +1476,7 @@ function WindowsSimulator() {
 				let alturaAll = window.innerHeight;
 				if (WS_menu_bar_json.length) alturaAll -= 27;
 				document.getElementById("ws-all").style.height = alturaAll + "px";
+                WS.menu.context.close();
 			}
 
 			this.exec = function(index, index2) {
