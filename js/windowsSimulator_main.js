@@ -815,7 +815,7 @@ function WindowsSimulator() {
 				obj = validar(obj, false);
 				if (typeof obj == "object") {
 					let lista = "*";
-					if (except !== undefined) except = "";
+					if (except === undefined) except = "";
 					if (except) lista += ":not(" + except + ")";
 					Array.from(document.querySelectorAll(lista)).forEach((el) => {
 						el.oncontextmenu = function() {}
